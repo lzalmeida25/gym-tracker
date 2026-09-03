@@ -114,3 +114,136 @@ Depois da entrega, faremos uma pausa para conferência antes de avançar.
 
 O [checklist de implementação](docs/plano-mvp.md) registra a ordem das tarefas,
 o que comprova cada entrega e as observações do aprendizado.
+
+## CI/CD e qualidade de código
+
+### Fluxo atual
+
+O projeto usa GitHub Actions para integração contínua (CI). O workflow é executado:
+
+- em Pull Requests destinados à branch `main`;
+- após alterações enviadas diretamente à `main`;
+- manualmente pela aba **Actions**, por meio de `workflow_dispatch`.
+
+Execuções anteriores do mesmo Pull Request são canceladas quando um novo commit é
+enviado. Isso evita gastar tempo verificando uma versão que já ficou desatualizada.
+O workflow possui apenas permissão de leitura do repositório e limite de dez
+minutos.
+
+O job **Quality gates** usa Node 24, instala exatamente as versões registradas no
+`package-lock.json`, aproveita o cache do npm e executa, nesta ordem:
+
+1. `npm run lint` — procura problemas no código JavaScript e React;
+2. `npm run audit` — bloqueia vulnerabilidades conhecidas de severidade alta ou
+   crítica nas dependências;
+3. `npm run build` — confirma que o frontend pode gerar uma versão de produção.
+
+O build só é executado se os checks anteriores passarem. Qualquer uma dessas
+falhas deve bloquear o merge. O Dependabot procura atualizações do npm toda
+segunda-feira e abre Pull Requests limitados e revisáveis; dependências de
+desenvolvimento recebem atualizações menores e correções agrupadas.
+
+### Executar localmente
+
+Entre na pasta do frontend antes dos comandos:
+
+```bash
+cd frontend
+```
+
+Use Node 24. Quem utiliza NVM pode selecionar a versão registrada no projeto:
+
+```bash
+nvm use
+```
+
+Para reproduzir o CI inteiro:
+
+```bash
+npm ci
+npm run check
+```
+
+Também é possível executar cada verificação isoladamente:
+
+```bash
+npm run lint
+npm run audit
+npm run build
+```
+
+`npm ci` é usado no lugar de `npm install` durante a validação porque faz uma
+instalação limpa e fiel ao lockfile. Use `npm install` apenas quando estiver
+adicionando ou atualizando uma dependência e versionar junto as alterações de
+`package.json` e `package-lock.json`.
+
+### Testes e cobertura
+
+O projeto ainda não contém regras de negócio nem suíte de testes. Por isso, não
+foram criados testes artificiais, relatório de cobertura ou percentual mínimo.
+Os testes unitários com Vitest serão adicionados junto à tarefa 05 do plano do
+MVP, quando houver comportamento útil para verificar. Testes de integração e
+Playwright serão incluídos conforme surgirem banco local, autenticação e fluxos
+completos. Até lá, não há comando de testes ou cobertura a ser executado.
+
+Quando a suíte existir, seus comandos serão adicionados aos scripts do npm e ao
+job **Quality gates** antes de serem exigidos na proteção da branch.
+
+### Decisões dos quality gates
+
+| Verificação | Classificação atual | Motivo |
+| --- | --- | --- |
+| Lint | Necessário agora | ESLint já existe e detecta erros comuns de JavaScript e React com baixo custo. |
+| Auditoria de dependências | Necessário agora | O aplicativo depende de pacotes externos; apenas riscos altos e críticos bloqueiam para evitar ruído excessivo. |
+| Build | Necessário agora | É a garantia mínima de que o frontend pode ser publicado. |
+| Atualização de dependências | Necessário agora | O Dependabot mantém o lockfile revisável sem atualização automática da aplicação. |
+| Formatação automática | Recomendado depois | Ainda não existe formatter nem volume de código que justifique outra ferramenta obrigatória. |
+| Testes unitários | Recomendado depois | Serão úteis quando começarem os comportamentos do MVP; hoje testariam apenas a demonstração do Vite. |
+| Testes de integração e E2E | Recomendado depois | Dependem dos fluxos de autenticação, armazenamento e treino ainda não implementados. |
+| Cobertura mínima | Recomendado depois | Só deve ser avaliada quando houver suíte; definir uma porcentagem agora seria arbitrário. |
+| Type checking | Desnecessário agora | O MVP permanecerá em JavaScript e não há configuração de TypeScript ou JSDoc tipado. |
+| Validação de arquitetura | Desnecessário agora | A aplicação ainda não possui camadas suficientes para justificar uma ferramenta dedicada. |
+| Docker e migrations | Desnecessário agora | Não há Docker nem banco versionado no estado atual. Migrations ganharão validação quando forem criadas. |
+| CodeQL ou analisador adicional | Recomendado depois | Neste código inicial, acrescentaria manutenção e pouco sinal além do lint e da auditoria. |
+| Detecção de secrets | Recomendado na plataforma | Ativar o secret scanning do GitHub, quando disponível, evita manter outra ferramenta no workflow. |
+| Smoke test | Recomendado com o deploy | Não existe ambiente publicado ou URL estável para validar neste momento. |
+
+### Falhas comuns
+
+- **`npm ci` informa lockfile inconsistente:** execute `npm install` após alterar
+  dependências, confira os dois arquivos de pacotes e versione ambos.
+- **Lint falha:** execute `npm run lint`, abra o arquivo e a linha indicados e
+  corrija a regra apontada. O lint não altera os arquivos automaticamente.
+- **Auditoria falha:** leia o pacote e a severidade no log, tente uma atualização
+  compatível e execute `npm run audit` novamente. Não use `--force` sem revisar
+  possíveis mudanças incompatíveis.
+- **Build falha:** execute `npm run build` e comece pelo primeiro erro. Causas
+  comuns são importações incorretas, dependências ausentes ou código inválido.
+- **Só falha no GitHub:** confirme Node 24 com `node --version`, faça uma instalação
+  limpa com `npm ci` e repita `npm run check`.
+
+### Proteção recomendada para a branch principal
+
+Nas configurações do GitHub, criar uma ruleset para `main` com:
+
+- exigir Pull Request antes do merge;
+- exigir o check **CI / Quality gates** com sucesso;
+- exigir que a branch esteja atualizada antes do merge;
+- bloquear force push e exclusão da branch;
+- impedir bypass das regras pelos colaboradores.
+
+Uma revisão obrigatória não é necessária enquanto houver apenas um desenvolvedor,
+pois impediria trabalho individual. Ela deve passar a ser exigida quando outra
+pessoa puder revisar as mudanças. Essas regras são configuração externa do
+GitHub e não podem ser garantidas apenas pelos arquivos do repositório.
+
+### Continuous Delivery/Deployment
+
+CD não foi implementado. A Vercel está planejada, mas o repositório ainda não
+define projeto, ambientes, domínio, variáveis, smoke test ou política de promoção
+para produção. Criar um workflow agora exigiria inventar infraestrutura e secrets.
+
+Quando a tarefa 39 for iniciada, será necessário definir o projeto da Vercel,
+ambientes de preview e produção, `VITE_SUPABASE_URL`, a chave pública do Supabase,
+URLs autorizadas de autenticação, proteção de produção, teste de fumaça e estratégia
+de rollback. Valores sensíveis nunca devem ser escritos no repositório.
