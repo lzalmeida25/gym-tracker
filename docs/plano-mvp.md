@@ -10,6 +10,8 @@ regras de produto estão no [README](../README.md).
 - Tarefas 02 a 40: pendentes.
 - Próxima tarefa, após a conferência: **02 — Conhecer o projeto atual**.
 - Nenhuma funcionalidade do aplicativo foi implementada na tarefa 01.
+- Preparação adicional: CI profissionalizado antes da tarefa 02, sem antecipar
+  funcionalidades ou marcar a tarefa 05 como concluída.
 
 Uma caixa marcada indica uma entrega concluída, não a conclusão do MVP nem a
 confirmação de aprendizado pelo usuário. A conferência será registrada nas
@@ -271,3 +273,18 @@ continuam fora desta versão.
 
 Nas próximas entregas, registrar aqui objetivo, conceito, alteração, verificação,
 resultado da conferência e dúvidas que precisem ser retomadas.
+
+### Preparação de CI/CD — 2026-09-03
+
+- **Objetivo:** estabelecer verificações profissionais proporcionais ao estado
+  atual antes de continuar as funcionalidades do MVP.
+- **Entrega:** CI com Node 24, instalação reproduzível, cache, menor privilégio,
+  cancelamento de execuções antigas, timeout, lint, auditoria e build; Dependabot
+  semanal; comandos locais e decisões documentados no README.
+- **Não incluído:** deploy, testes vazios, cobertura arbitrária, formatter,
+  TypeScript, Docker ou analisadores redundantes.
+- **Motivo:** ainda não existem ambiente de deploy nem comportamentos de negócio
+  testáveis. Esses itens serão incorporados nas tarefas correspondentes.
+- **Observação:** `src/services/supabase.js` referencia uma dependência ainda não
+  instalada. O módulo não é usado no app atual; sua regularização permanece na
+  tarefa 06 para não antecipar a integração.
