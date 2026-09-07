@@ -6,9 +6,9 @@ Construir um aplicativo para cadastrar exercícios, montar fichas, registrar
 treinos e consultar o desempenho anterior, inclusive offline. O escopo e as
 regras de produto estão no [README](../README.md).
 
-- Tarefa 01: documentação entregue; aguardando conferência do usuário.
-- Tarefas 02 a 40: pendentes.
-- Próxima tarefa, após a conferência: **02 — Conhecer o projeto atual**.
+- Tarefas 01 e 02: concluídas.
+- Tarefas 03 a 40: pendentes.
+- Tarefa em andamento: **03 — Substituir a demonstração do Vite**.
 - Nenhuma funcionalidade do aplicativo foi implementada na tarefa 01.
 - Preparação adicional: CI profissionalizado antes da tarefa 02, sem antecipar
   funcionalidades ou marcar a tarefa 05 como concluída.
@@ -88,7 +88,7 @@ referência. Não há prazo fixo por tarefa: o ritmo acompanha o aprendizado.
   acordado e criar este acompanhamento.
   **Verificação:** funcionalidades do MVP e itens futuros estão separados,
   decisões registradas e todas as 40 tarefas identificadas.
-- [ ] **02. Conhecer o projeto atual.** Identificar entrada do aplicativo,
+- [x] **02. Conhecer o projeto atual.** Identificar entrada do aplicativo,
   componente principal, estilos e comandos.
   **Verificação:** o usuário consegue localizar onde alterar um texto da tela.
 - [ ] **03. Substituir a demonstração do Vite.** Mostrar o nome Gym Tracker e uma
@@ -288,3 +288,14 @@ resultado da conferência e dúvidas que precisem ser retomadas.
 - **Observação:** `src/services/supabase.js` referencia uma dependência ainda não
   instalada. O módulo não é usado no app atual; sua regularização permanece na
   tarefa 06 para não antecipar a integração.
+
+### Tarefa 02 — 2026-09-07
+
+- **Objetivo:** identificar onde a aplicação começa, como a tela é formada, onde
+  ficam os estilos e quais comandos estão disponíveis.
+- **Conceito:** `index.html` recebe a aplicação, `main.jsx` inicia o React e
+  `App.jsx` descreve o conteúdo; os arquivos CSS controlam a aparência.
+- **Entrega:** criado `docs/estrutura-do-projeto.md` com o fluxo de renderização,
+  mapa de arquivos, comandos e um exercício de localização.
+- **Como conferir:** abrir o guia e localizar `frontend/src/App.jsx`; o texto
+  principal da tela está dentro do elemento `h1` desse componente.
