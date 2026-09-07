@@ -1,121 +1,84 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
+const summaryItems = [
+  { value: '0', label: 'exercícios' },
+  { value: '0', label: 'fichas' },
+  { value: '0', label: 'treinos concluídos' },
+]
+
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+    <div className="app-shell">
+      <header className="app-header">
+        <a className="brand" href="/" aria-label="Gym Tracker — página inicial">
+          <span className="brand-mark" aria-hidden="true">
+            GT
+          </span>
+          <span>Gym Tracker</span>
+        </a>
+
+        <span className="version-badge">MVP</span>
+      </header>
+
+      <main className="dashboard">
+        <section className="page-heading" aria-labelledby="page-title">
+          <p className="eyebrow">Visão geral</p>
+          <h1 id="page-title">Seu treino começa aqui.</h1>
+          <p className="page-description">
+            Organize sua rotina e acompanhe cargas e repetições em um só lugar.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        </section>
 
-      <div className="ticks"></div>
+        <section className="workout-card" aria-labelledby="today-title">
+          <div className="workout-card__header">
+            <div>
+              <p className="card-label">Treino de hoje</p>
+              <h2 id="today-title">Nenhum treino em andamento</h2>
+            </div>
+            <span className="status-indicator" aria-label="Sem treino ativo">
+              <span aria-hidden="true" />
+              Em repouso
+            </span>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <p className="workout-card__description">
+            Quando você iniciar uma ficha, seu progresso aparecerá nesta área.
+          </p>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+          <button
+            className="primary-action"
+            type="button"
+            disabled
+            title="Disponível em uma próxima etapa"
+          >
+            Iniciar treino
+          </button>
+        </section>
+
+        <section className="summary" aria-labelledby="summary-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Sua rotina</p>
+              <h2 id="summary-title">Resumo</h2>
+            </div>
+            <p>Os números serão atualizados conforme você usar o aplicativo.</p>
+          </div>
+
+          <div className="summary-grid">
+            {summaryItems.map((item) => (
+              <article className="summary-card" key={item.label}>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <footer className="app-footer">
+        <p>Consistência em cada série.</p>
+      </footer>
+    </div>
   )
 }
 

@@ -6,9 +6,9 @@ Construir um aplicativo para cadastrar exercícios, montar fichas, registrar
 treinos e consultar o desempenho anterior, inclusive offline. O escopo e as
 regras de produto estão no [README](../README.md).
 
-- Tarefas 01 e 02: concluídas.
-- Tarefas 03 a 40: pendentes.
-- Tarefa em andamento: **03 — Substituir a demonstração do Vite**.
+- Tarefas 01 a 03: concluídas.
+- Tarefas 04 a 40: pendentes.
+- Próxima tarefa: **04 — Criar a navegação inicial**.
 - Nenhuma funcionalidade do aplicativo foi implementada na tarefa 01.
 - Preparação adicional: CI profissionalizado antes da tarefa 02, sem antecipar
   funcionalidades ou marcar a tarefa 05 como concluída.
@@ -91,7 +91,7 @@ referência. Não há prazo fixo por tarefa: o ritmo acompanha o aprendizado.
 - [x] **02. Conhecer o projeto atual.** Identificar entrada do aplicativo,
   componente principal, estilos e comandos.
   **Verificação:** o usuário consegue localizar onde alterar um texto da tela.
-- [ ] **03. Substituir a demonstração do Vite.** Mostrar o nome Gym Tracker e uma
+- [x] **03. Substituir a demonstração do Vite.** Mostrar o nome Gym Tracker e uma
   página inicial simples, adaptada ao celular.
   **Verificação:** a tela abre sem o contador e os exemplos do Vite.
 - [ ] **04. Criar a navegação inicial.** Adicionar páginas vazias para exercícios,
@@ -299,3 +299,16 @@ resultado da conferência e dúvidas que precisem ser retomadas.
   mapa de arquivos, comandos e um exercício de localização.
 - **Como conferir:** abrir o guia e localizar `frontend/src/App.jsx`; o texto
   principal da tela está dentro do elemento `h1` desse componente.
+
+### Tarefa 03 — 2026-09-07
+
+- **Objetivo:** substituir a demonstração do Vite por uma página inicial própria
+  do Gym Tracker, legível em celulares e computadores.
+- **Conceito:** o componente React define a estrutura e o conteúdo; os estilos
+  globais criam a identidade visual e o CSS do componente organiza cada área.
+- **Entrega:** painel inicial com marca, estado do treino, resumo vazio da rotina,
+  textos em português, metadados do documento e layout responsivo.
+- **Como conferir:** iniciar o frontend, abrir a página e confirmar que aparecem
+  “Gym Tracker” e “Seu treino começa aqui”, sem contador, logos ou links do Vite.
+- **Limite:** o botão permanece desabilitado e os números permanecem em zero. A
+  navegação e os dados reais pertencem às próximas tarefas.
