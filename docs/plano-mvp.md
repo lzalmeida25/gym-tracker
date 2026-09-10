@@ -6,9 +6,9 @@ Construir um aplicativo para cadastrar exercícios, montar fichas, registrar
 treinos e consultar o desempenho anterior, inclusive offline. O escopo e as
 regras de produto estão no [README](../README.md).
 
-- Tarefas 01 a 03: concluídas.
-- Tarefas 04 a 40: pendentes.
-- Próxima tarefa: **04 — Criar a navegação inicial**.
+- Tarefas 01 a 04: concluídas.
+- Tarefas 05 a 40: pendentes.
+- Próxima tarefa: **05 — Preparar verificações automáticas**.
 - Nenhuma funcionalidade do aplicativo foi implementada na tarefa 01.
 - Preparação adicional: CI profissionalizado antes da tarefa 02, sem antecipar
   funcionalidades ou marcar a tarefa 05 como concluída.
@@ -94,7 +94,7 @@ referência. Não há prazo fixo por tarefa: o ritmo acompanha o aprendizado.
 - [x] **03. Substituir a demonstração do Vite.** Mostrar o nome Gym Tracker e uma
   página inicial simples, adaptada ao celular.
   **Verificação:** a tela abre sem o contador e os exemplos do Vite.
-- [ ] **04. Criar a navegação inicial.** Adicionar páginas vazias para exercícios,
+- [x] **04. Criar a navegação inicial.** Adicionar páginas vazias para exercícios,
   fichas e histórico.
   **Verificação:** links e botão voltar funcionam.
 - [ ] **05. Preparar verificações automáticas.** Adicionar Vitest, um teste simples
@@ -312,3 +312,17 @@ resultado da conferência e dúvidas que precisem ser retomadas.
   “Gym Tracker” e “Seu treino começa aqui”, sem contador, logos ou links do Vite.
 - **Limite:** o botão permanece desabilitado e os números permanecem em zero. A
   navegação e os dados reais pertencem às próximas tarefas.
+
+### Tarefa 04 — 2026-09-10
+
+- **Objetivo:** permitir a navegação entre o início e as áreas de exercícios,
+  fichas e histórico.
+- **Conceito:** uma rota relaciona um endereço a um componente. O layout mantém
+  cabeçalho, menu e rodapé visíveis enquanto o React Router troca a página.
+- **Entrega:** React Router configurado, layout compartilhado, menu responsivo,
+  três páginas vazias, página para endereços desconhecidos e links de retorno.
+- **Como conferir:** usar os links do cabeçalho ou os cartões do resumo, abrir as
+  três páginas e usar “Voltar ao início”; no celular, o menu aparece na parte
+  inferior da tela.
+- **Limite:** as páginas explicam o conteúdo futuro, mas ainda não possuem
+  cadastro, banco de dados ou dados simulados.
