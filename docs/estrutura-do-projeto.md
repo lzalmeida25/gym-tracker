@@ -12,18 +12,23 @@ O fluxo principal é:
 index.html
   └── src/main.jsx
         └── src/App.jsx
-              ├── src/App.css
-              ├── src/index.css
-              └── src/assets e public
+              └── React Router
+                    └── src/components/AppLayout.jsx
+                          ├── src/pages/
+                          ├── src/App.css
+                          └── src/index.css
 ```
 
 1. `frontend/index.html` contém o elemento vazio chamado `root` e carrega o
    JavaScript da aplicação.
 2. `frontend/src/main.jsx` encontra esse elemento e pede ao React para renderizar
    o componente `App` dentro dele.
-3. `frontend/src/App.jsx` descreve, usando JSX, o conteúdo visível da página.
-4. `frontend/src/App.css` contém estilos específicos da tela inicial.
-5. `frontend/src/index.css` reúne as regras gerais, como cores, tipografia e o
+3. `frontend/src/App.jsx` associa cada endereço a uma página usando React Router.
+4. `frontend/src/components/AppLayout.jsx` compartilha cabeçalho, menu e rodapé
+   entre as páginas e reserva o espaço onde a rota atual será exibida.
+5. Os arquivos de `frontend/src/pages/` descrevem o conteúdo de cada página.
+6. `frontend/src/App.css` contém estilos específicos da interface.
+7. `frontend/src/index.css` reúne as regras gerais, como cores, tipografia e o
    comportamento básico da página.
 
 JSX é uma forma de escrever uma estrutura parecida com HTML dentro do JavaScript.
@@ -34,7 +39,9 @@ Um componente é uma função que devolve essa estrutura para o React exibir.
 | Caminho | Responsabilidade atual |
 | --- | --- |
 | `frontend/src/main.jsx` | Ponto de entrada do React. |
-| `frontend/src/App.jsx` | Componente principal e conteúdo da tela inicial. |
+| `frontend/src/App.jsx` | Componente principal que configura as rotas. |
+| `frontend/src/components/` | Partes reutilizadas por mais de uma página. |
+| `frontend/src/pages/` | Conteúdo associado a cada endereço do aplicativo. |
 | `frontend/src/App.css` | Aparência específica do componente `App`. |
 | `frontend/src/index.css` | Estilos e variáveis compartilhados pela aplicação. |
 | `frontend/src/assets/` | Imagens importadas pelo código e processadas pelo Vite. |
@@ -45,9 +52,8 @@ Um componente é uma função que devolve essa estrutura para o React exibir.
 | `.github/workflows/ci.yml` | Verificações automáticas executadas pelo GitHub. |
 | `docs/plano-mvp.md` | Ordem e andamento das pequenas entregas do MVP. |
 
-O projeto ainda não possui páginas separadas, componentes reutilizáveis, banco
-local ou autenticação. Essas estruturas serão criadas somente quando as próximas
-tarefas precisarem delas.
+O projeto ainda não possui banco local ou autenticação. Essas estruturas serão
+criadas somente quando as próximas tarefas precisarem delas.
 
 ## Comandos disponíveis
 
@@ -68,14 +74,14 @@ cd frontend
 
 ## Exercício de localização
 
-Para mudar um texto da tela inicial:
+Para mudar o título da tela inicial:
 
-1. abra `frontend/src/App.jsx`;
+1. abra `frontend/src/pages/HomePage.jsx`;
 2. encontre o texto dentro de uma tag como `<h1>...</h1>`;
 3. altere o conteúdo entre as tags;
 4. salve o arquivo com `npm run dev` em execução;
 5. observe a atualização no navegador.
 
 Não é necessário executar esse exercício agora. O importante é reconhecer que o
-conteúdo fica em `App.jsx`, enquanto sua aparência fica principalmente nos dois
-arquivos CSS.
+conteúdo de cada tela fica em seu arquivo dentro de `pages`, enquanto a aparência
+fica principalmente nos dois arquivos CSS. As rotas ficam em `App.jsx`.
